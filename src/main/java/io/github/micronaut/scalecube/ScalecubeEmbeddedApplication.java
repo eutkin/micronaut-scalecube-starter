@@ -25,7 +25,6 @@ import java.util.function.UnaryOperator;
 @Replaces(EmbeddedApplication.class)
 public class ScalecubeEmbeddedApplication implements EmbeddedApplication<ScalecubeEmbeddedApplication> {
 
-    public static final String MICRONAUT_SCALECUBE_PORT = "micronaut.scalecube.port";
     private final ApplicationContext applicationContext;
     private final ApplicationConfiguration applicationConfiguration;
 
@@ -91,9 +90,7 @@ public class ScalecubeEmbeddedApplication implements EmbeddedApplication<Scalecu
     }
 
     @Inject
-    public void setServiceDiscoveryInitializer(Optional<DiscoveryInitializer> serviceDiscoveryInitializer) {
-        if (serviceDiscoveryInitializer.isPresent()) {
-            this.serviceDiscoveryInitializer = serviceDiscoveryInitializer.get();
-        }
+    public void setServiceDiscoveryInitializer(Optional<DiscoveryInitializer> serviceDiscovery) {
+        serviceDiscovery.ifPresent(discoveryInitializer -> this.serviceDiscoveryInitializer = discoveryInitializer);
     }
 }
